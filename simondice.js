@@ -42,20 +42,12 @@ drawSprites();
 if(esperandoJugador === true){
 player();
 }
-let legio = false;
-
-if (mouseIsPressed && mouseButton === LEFT) {
-legio = true;
-setTimeout(() => {
-player()
-}, 1000);
-}
+ 
   
 }
 
 function cambiarcolor(auxiliar) {
 boton.remove();
-
 console.log('entro al if de generar number');
 numero = floor(random(1, 5));
 auxiliar.push(numero);
@@ -86,12 +78,16 @@ setTimeout(() => amarillo.shapeColor = color(255, 255, 0, 150), t2);
   
 setTimeout(() => {
 esperandoJugador = true; 
-console.log('Ahora el jugador puede interactuar');
+console.log("Ahora el jugador puede interactuar.");
 }, (auxiliar.length + 1) * 2000); 
 }
 
 function player() {
-
+let legio = false;
+if (mouseIsPressed) {
+legio = true;
+}
+if (mouseIsPressed && legio) {
 let t1 = 1000;
 legio = false;
 
@@ -99,6 +95,7 @@ if (mouseX > 500 - 100 && mouseX < 500 + 100 && mouseY > 400 - 100 && mouseY < 4
 console.log('Sprite rojo presionado');
 rojo.shapeColor = color(255, 0, 0, 250);
 movimientosocasionadosporelplayer.push(1);
+legio = false;
 setTimeout(() => rojo.shapeColor = color(255, 0, 0, 150), t1);
 }
 
@@ -121,16 +118,17 @@ amarillo.shapeColor = color(255, 255, 0, 250);
 movimientosocasionadosporelplayer.push(4);
     setTimeout(() => amarillo.shapeColor = color(255, 255, 0, 150), t1);
 }
-
+}
 setTimeout(() => {
 esperandoJugador = true; 
 comparacion();
 }, (auxiliar.length + 1) * 2000); 
+
 }
+
 function comparacion(){
 console.log('ya  no puede seguir el jugador')
 if(auxiliar === movimientosocasionadosporelplayer){
-console.log('se puede seguir');
-cambiarcolor();// segun yo si llego a hacer q cada click valga solo un movimiennto osea q se dectecte un solo click el codigo andaria perfecto capaz algun problema con el boton pq no abria
+console.log('se puede seguir')
 }
 }
